@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <section class="data-container"></section>
+    <template>
+      <article id="allDyr">
+        <h3></h3>
+        <img src="" alt="" />
+        <p class="typedyr"></p>
+        <p class="bordyr"></p>
+      </article>
+    </template>
+  </body>
+
+  <script>
+    const dyr = [
+      {
+        navn: "Gris",
+        type: "Pattedyr",
+        billede: "http://mabe-kea.dk/E19/pics/pig.png",
+        levested: "Bondegård",
+      },
+      {
+        navn: "Frø",
+        type: "krybdyr",
+        billede: "http://mabe-kea.dk/E19/pics/frog.png",
+        levested: "Fugtige steder",
+      },
+      {
+        navn: "Ræv",
+        type: "Rovdyr",
+        billede: "http://mabe-kea.dk/E19/pics/fox.png",
+        levested: "Natur",
+      },
+      {
+        navn: "Sild",
+        type: "Rovdyr",
+        billede: "http://mabe-kea.dk/E19/pics/sild.jpg",
+        levested: "Vandet",
+      },
+      {
+        navn: "Krokodillle",
+        type: "Rovdyr",
+        billede: "http://mabe-kea.dk/E19/pics/kroko.jpg",
+        levested: "Vandet",
+      },
+    ];
+    console.log(dyr);
+
+    document.addEventListener("DOMContentloaded", start());
+    function start() {
+      console.log("siden er loaded");
+
+      // const listevisning = document.querySelector("#liste");
+      // dyr.forEach((dyr) => {
+      //   listevisning.innerHTML += `<p>
+      //       ${dyr.navn} ${dyr.type} fra ${dyr.levested}
+      //     </p>`;
+      // });
+    }
+    const container = document.querySelector(".data-container");
+    const dyrTemplate = document.querySelector("template");
+
+    dyr.forEach((dyr) => {
+      let klon = dyrTemplate.cloneNode(true).content;
+
+      klon.querySelector("h3").textContent = dyr.navn;
+      klon.querySelector(".typedyr").textContent = dyr.type;
+      klon.querySelector("img").src = dyr.billede;
+      klon.querySelector(".bordyr").textContent = dyr.levested;
+      klon.querySelector("#allDyr").style.border = "2px solid black";
+      klon.querySelector("#allDyr").style.margin = "10px";
+      klon.querySelector("#allDyr").style.width = "200px";
+      container.appendChild(klon);
+    });
+  </script>
+</html>

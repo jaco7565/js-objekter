@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style_09.css" />
+  </head>
+  <body>
+    <main>
+      <section class="data-container"></section>
+      <template>
+        <article id="allArticle">
+          <img src="" alt="" />
+          <h3></h3>
+          <p class="underText"></p>
+        </article>
+      </template>
+    </main>
+  </body>
+  <script>
+    const kasse = [
+      {
+        overskrift: "A Calling",
+        billede:
+          "https://odense-film-festival.s3.eu-central-1.amazonaws.com/media/W6dOqabNhHKBPXxxKKEZRA84-360.jpg",
+        beskrivelse: "Christian Bengston",
+      },
+      {
+        overskrift: "A Hole In My Heart",
+        billede:
+          "https://odense-film-festival.s3.eu-central-1.amazonaws.com/media/Q8K1pZrOs03Q0IrDkBwGVu5r-360.jpg",
+        beskrivelse: "Mees Peijnenburg",
+      },
+      {
+        overskrift: "A Place In The Sun - 110 years after th genocide",
+        billede:
+          "https://odense-film-festival.s3.eu-central-1.amazonaws.com/media/hUd4SdGQ8I23ovxWnGtBz4Ck-360.jpg",
+        beskrivelse: "Christian Zipfel",
+      },
+      {
+        overskrift: "A Summer Place",
+        billede:
+          "https://odense-film-festival.s3.eu-central-1.amazonaws.com/media/9ZXEAY471UE4gFwHMXeRb17p-360.jpg",
+        beskrivelse: "Alexandra Matheou",
+      },
+      {
+        overskrift: "A Tower of Two",
+        billede:
+          "https://odense-film-festival.s3.eu-central-1.amazonaws.com/media/Zdt2ODEqSVOkNe8nUaSSu8kd-360.jpg",
+        beskrivelse: "Jacob Salah Knudsen",
+      },
+    ];
+    console.log(kasse);
+
+    document.addEventListener("DOMContentloaded", start());
+    function start() {
+      console.log("siden er loaded");
+    }
+    const container = document.querySelector(".data-container");
+    const kasseTemplate = document.querySelector("template");
+
+    kasse.forEach((kasse) => {
+      let klon = kasseTemplate.cloneNode(true).content;
+
+      klon.querySelector("h3").textContent = kasse.overskrift;
+      klon.querySelector("img").src = kasse.billede;
+      klon.querySelector(".underText").textContent = kasse.beskrivelse;
+      container.appendChild(klon);
+    });
+  </script>
+</html>

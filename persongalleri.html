@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      img {
+        display: block;
+        width: 400px;
+        object-fit: cover;
+        place-items: center;
+      }
+      .data-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 5px;
+        place-items: center;
+      }
+      #allDyr {
+        max-width: 400px;
+        margin-bottom: 0.5rem;
+        border: solid 2px orange;
+        border-radius: 26px;
+        box-shadow: 10px 10px 8px #888888;
+      }
+      h2 {
+        text-align: center;
+      }
+
+      p {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="data-container"></section>
+    <template>
+      <article id="allDyr">
+        <h2 class="fornavn"></h2>
+        <h2 class="efternavn"></h2>
+        <img src="" alt="" />
+        <p class="bday"></p>
+        <p class="email"></p>
+        <p class="hobby"></p>
+        <p class="titel"></p>
+        <p class="troende"></p>
+      </article>
+    </template>
+  </body>
+
+  <script>
+    const container = document.querySelector(".data-container");
+    const dyrTemplate = document.querySelector("template");
+
+    const url = "https://persongalleri-5d3e.restdb.io/rest/persongalleri";
+
+    const options = {
+      headers: {
+        "x-apikey": "600fe9211346a1524ff12e31",
+      },
+    };
+
+    window.addEventListener("DOMContentLoaded", start);
+    function start() {
+      console.log("siden er loaded");
+
+      async function hentdata() {
+        const resultat = await fetch(url, options);
+        const personer = await resultat.json();
+        vis(personer);
+      }
+
+      function vis(personer) {
+        console.log(personer);
+
+        personer.forEach((hverPerson) => {
+          const klon = dyrTemplate.cloneNode(true).content;
+
+          klon.querySelector(".fornavn").textContent = hverPerson.fornavn;
+          klon.querySelector(".efternavn").textContent = hverPerson.efternavn;
+          klon.querySelector(".bday").textContent = hverPerson.fødselsdag;
+          klon.querySelector(".email").textContent = hverPerson.email;
+          klon.querySelector(".hobby").textContent = hverPerson.hobby;
+          klon.querySelector(".titel").textContent = hverPerson.titel;
+          klon.querySelector(".troende").textContent = hverPerson.troende;
+          klon.querySelector("img").src = "faces/" + hverPerson.billede;
+          container.appendChild(klon);
+        });
+      }
+      hentdata();
+    }
+  </script>
+</html>

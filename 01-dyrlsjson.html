@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <section class="data-container"></section>
+    <template>
+      <article id="allDyr">
+        <h3></h3>
+        <img src="" alt="" />
+        <p class="typedyr"></p>
+        <p class="bordyr"></p>
+      </article>
+    </template>
+  </body>
+
+  <script>
+    window.addEventListener("DOMContentLoaded", start);
+    function start() {
+      console.log("siden er loaded");
+
+      const container = document.querySelector(".data-container");
+      const dyrTemplate = document.querySelector("template");
+
+      const fil = "alleDyr.json";
+
+      async function hentdata(fil) {
+        const resultat = await fetch(fil);
+        const json = await resultat.json();
+        vis(json);
+      }
+
+      function vis(json) {
+        json.forEach((dyr) => {
+          const klon = dyrTemplate.cloneNode(true).content;
+
+          klon.querySelector("h3").textContent = dyr.navn;
+          klon.querySelector(".typedyr").textContent = dyr.type;
+          klon.querySelector("img").src = dyr.billede;
+          klon.querySelector(".bordyr").textContent = dyr.levested;
+          klon.querySelector("#allDyr").style.border = "2px solid black";
+          klon.querySelector("#allDyr").style.margin = "10px";
+          klon.querySelector("#allDyr").style.width = "200px";
+          container.appendChild(klon);
+        });
+      }
+      hentdata(fil);
+    }
+  </script>
+</html>
